@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Sun, Moon } from 'lucide-react';
+import Webring from './Webring';
 
 interface NavigationProps {
     isDarkMode: boolean;
@@ -14,8 +15,7 @@ export const Navigation: React.FC<NavigationProps> = ({ isDarkMode, setIsDarkMod
         <nav className={`fixed top-0 w-full z-50 px-8 lg:px-16 transition-all ${scrolled ? 'py-4 backdrop-blur-md border-b ' + theme.border : 'py-10'}`}>
             <div className="max-w-7xl mx-auto flex justify-between items-center">
                 <div className="flex items-center space-x-3 cursor-pointer">
-                    {/* Removed Logo and Name */}
-                    <div />
+                    <Webring isDarkMode={isDarkMode} />
                 </div>
 
                 <div className="flex items-center space-x-8">
