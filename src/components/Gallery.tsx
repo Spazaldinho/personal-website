@@ -28,13 +28,13 @@ export const Gallery = () => {
         else if (i % 5 === 0) spanClass = "col-span-2 row-span-1";
         else if (i % 7 === 0) spanClass = "col-span-1 row-span-2";
 
-        // Extracting filename for caption
-        const filename = src.split('/').pop() || `Image ${i}`;
+        const yearMatch = src.match(/Photos\/(\d{4})\//);
+        const year = (yearMatch && yearMatch[1]) ? yearMatch[1] : "2024";
 
         return {
             id: i,
             src,
-            caption: `Observation Study No. ${i + 101} — ${filename}`,
+            caption: `${year}  •  Location`,
             spanClass
         };
     });
@@ -84,19 +84,21 @@ export const Gallery = () => {
     }, []);
 
     return (
-        <div className="pt-32 pb-20 px-4 md:px-8 max-w-[1600px] mx-auto min-h-screen">
+        <div className="pt-28 pb-20 px-4 md:px-8 max-w-[1600px] mx-auto min-h-screen">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[200px] md:auto-rows-[300px] gap-2 md:gap-4 grid-flow-dense">
                 {images.map((img) => (
                     <div
                         key={img.id}
                         onClick={(e) => openLightbox(e, img)}
                         className={`gallery-img group relative cursor-crosshair overflow-hidden opacity-0 translate-y-8 transition-all duration-1000 ease-out ${img.spanClass}`}
+                        style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
                     >
                         <img
                             src={img.src}
                             className="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000"
                             loading="lazy"
                             alt={`Gallery ${img.id}`}
+                            style={{ WebkitTransform: 'translate3d(0,0,0)', backfaceVisibility: 'hidden' }}
                         />
                     </div>
                 ))}
@@ -129,22 +131,7 @@ export const Gallery = () => {
                         onClick={(e) => e.stopPropagation()}
                     />
 
-                    <div
-                        className="absolute left-1/2 bg-white/90 backdrop-blur-md p-6 flex justify-between items-center shadow-lg transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] z-[110] max-w-2xl"
-                        style={{
-                            bottom: '3rem',
-                            transform: isAnimating && !isClosing ? 'translate(-50%, 0) scale(1)' : 'translate(-50%, 20px) scale(0.9)',
-                            opacity: isAnimating && !isClosing ? 1 : 0,
-                            width: isAnimating && !isClosing ? '90%' : '50%'
-                        }}
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <div className="space-y-1">
-                            <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#b59410]">Archival Entry</span>
-                            <p className="text-sm font-serif italic text-[#1a1a1a] truncate pr-4">{selectedImage.caption}</p>
-                        </div>
-                        <ChevronRight size={18} className="text-[#b59410] flex-shrink-0" />
-                    </div>
+
                 </div>
             )}
         </div>
