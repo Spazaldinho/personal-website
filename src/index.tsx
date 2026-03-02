@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { createRoot } from 'react-dom/client';
 import { Sun, Moon, Sparkles, Compass, MapPin, Star, Telescope, Info } from 'lucide-react';
+import './index.css';
 
 const App = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -184,5 +186,15 @@ const App = () => {
         </div>
     );
 };
+
+const container = document.getElementById('root');
+if (container) {
+    const root = createRoot(container);
+    root.render(
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>
+    );
+}
 
 export default App;
