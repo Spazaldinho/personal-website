@@ -94,7 +94,7 @@ export const Gallery = () => {
                     >
                         <img
                             src={img.src}
-                            className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000"
                             loading="lazy"
                             alt={`Gallery ${img.id}`}
                         />
